@@ -1,17 +1,20 @@
 <template>
-    <footer class="bg-gray-800 py-4">
-        <div class="container mx-auto px-4">
-            <p class="text-center text-gray-400 text-sm">
-                &copy; 2021 My Website. All rights reserved.
-            </p>
-        </div>
-    </footer>
+  <footer>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 lg:max-w-7xl">
+      <div
+        class="border-t border-gray-200 py-8 text-sm text-gray-500 text-center sm:text-left"
+      >
+        <span class="block sm:inline">&copy; 2021 Tailwind Labs Inc.</span>
+        <span class="block sm:inline">All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <script>
 export default {
-    name: 'Footer',
-}
+  name: "Footer",
+};
 </script>
 
 <style>
