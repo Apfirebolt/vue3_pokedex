@@ -43,9 +43,9 @@
                 <!-- Left nav -->
                 <div class="hidden lg:block lg:col-span-2">
                   <nav class="flex space-x-4">
-                    <a v-for="item in navigation" :key="item.name" :href="item.href" :class="[item.current ? 'text-white' : 'text-cyan-100', 'text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10']" :aria-current="item.current ? 'page' : undefined">
+                    <router-link v-for="item in navigation" :key="item.name" :to="{ name: item.link }" :class="[item.current ? 'text-white' : 'text-cyan-100', 'text-sm font-medium rounded-md bg-white bg-opacity-0 px-3 py-2 hover:bg-opacity-10']" :aria-current="item.current ? 'page' : undefined">
                       {{ item.name }}
-                    </a>
+                    </router-link>
                   </nav>
                 </div>
                 <div class="px-12 lg:px-0">
@@ -97,7 +97,7 @@
                       </div>
                     </div>
                     <div class="mt-3 px-2 space-y-1">
-                      <a v-for="item in navigation" :key="item.name" :href="item.href" class="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800">{{ item.name }}</a>
+                      <router-link v-for="item in navigation" :key="item.name" :to="{ name: item.link }" class="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800">{{ item.name }}</router-link>
                     </div>
                   </div>
                   <div class="pt-4 pb-2">
@@ -115,7 +115,9 @@
                       </button>
                     </div>
                     <div class="mt-3 px-2 space-y-1">
-                      <a v-for="item in userNavigation" :key="item.name" :href="item.href" class="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800">{{ item.name }}</a>
+                      <router-link v-for="item in userNavigation" :key="item.name" :to="{ name: item.link }" class="block rounded-md px-3 py-2 text-base text-gray-900 font-medium hover:bg-gray-100 hover:text-gray-800">
+                        {{ item.name }}
+                      </router-link>
                     </div>
                   </div>
                 </div>
@@ -140,14 +142,8 @@
     TransitionRoot,
   } from '@headlessui/vue'
   import {
-    AcademicCapIcon,
-    BadgeCheckIcon,
     BellIcon,
-    CashIcon,
-    ClockIcon,
     MenuIcon,
-    ReceiptRefundIcon,
-    UsersIcon,
     XIcon,
   } from '@heroicons/vue/outline'
   import { SearchIcon } from '@heroicons/vue/solid'
@@ -160,11 +156,10 @@
       'https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   }
   const navigation = [
-    { name: 'Home', href: '#', current: true },
-    { name: 'Profile', href: '#', current: false },
-    { name: 'Resources', href: '#', current: false },
-    { name: 'Company Directory', href: '#', current: false },
-    { name: 'Openings', href: '#', current: false },
+    { name: 'Home', link: 'Home', href: '#', current: true },
+    { name: 'Pokemon', link: 'PokemonList', href: '#', current: false },
+    { name: 'Items', link: 'ItemList', href: '#', current: false },
+    { name: 'Moves', link: 'MoveList', href: '#', current: false },
   ]
   const userNavigation = [
     { name: 'Your Profile', href: '#' },
@@ -184,6 +179,10 @@
       PopoverPanel,
       TransitionChild,
       TransitionRoot,
+      BellIcon,
+      SearchIcon,
+      MenuIcon,
+      XIcon,
     },
     setup() {
       return {
