@@ -1,33 +1,115 @@
 <template>
-    <div>
-        <h1>{{ title }}</h1>
-        <ul>
-            <li v-for="item in items" :key="item.id">{{ item.name }}</li>
-        </ul>
-    </div>
+  <div class="min-h-full bg-gradient-to-r from-emerald-500 to-emerald-900 p-1">
+    <main class="-mt-24 pb-8">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
+        <!-- Main 3 column grid -->
+        <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
+          <!-- Left column -->
+          <div class="grid grid-cols-1 gap-4 lg:col-span-2">
+            <!-- Welcome panel -->
+            <section aria-labelledby="profile-overview-title">
+              <div class="rounded-lg bg-white overflow-hidden shadow">
+                <div class="bg-white p-6">
+                  <div class="sm:flex sm:items-center sm:justify-between">
+                    <div class="sm:flex sm:space-x-5">
+                      <div class="flex-shrink-0">
+                        <img
+                          class="mx-auto h-20 w-20 rounded-full"
+                          src="../assets/pokemon.png"
+                          alt="Image not available"
+                        />
+                      </div>
+                      <div
+                        class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left"
+                      >
+                        <h2 class="text-xl font-bold text-gray-900 sm:text-2xl">
+                          Pokemon
+                        </h2>
+                        <p class="text-sm font-medium text-gray-600">
+                          List of all pokemon coming from the API
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="border-t border-gray-200 bg-gray-50 grid grid-cols-1 divide-y divide-gray-200 sm:grid-cols-3 sm:divide-y-0 sm:divide-x"
+                >
+                  <div
+                    v-for="(item, index) in pokemon"
+                    :key="index"
+                    class="px-3 py-2 text-sm font-medium text-center"
+                  >
+                    <p
+                      class="text-gray-900 bg-indigo-100 px-2 py-3 shadow rounded"
+                    >
+                      {{ capitalize(item.name) }}
+                    </p>
+                    {{ " " }}
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="grid grid-cols-1 gap-4">
+            <!-- Welcome panel -->
+            <section aria-labelledby="profile-overview-title">
+              <div class="rounded-lg bg-white overflow-hidden shadow">
+                <div
+                  class="border-t p-4 border-gray-200 bg-gray-50 grid grid-cols-1 divide-y divide-gray-200 sm:divide-y-0 sm:divide-x"
+                >
+                  <p>
+                    Pokémon is a Japanese media franchise consisting of video
+                    games, animated series and films, a trading card game, and
+                    other related media. The franchise takes place in a shared
+                    universe in which humans co-exist with creatures known as
+                    Pokémon, a large variety of species endowed with special
+                    powers. The franchise's target audience is children aged 5
+                    to 12,[1] but it is known to attract people of all ages.
+                  </p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
 </template>
 
 <script>
-import { reactive, computed } from 'vue';
+import { computed, onMounted } from "vue";
+import { usePokemon } from "../store/pokemon";
+import Loader from "../components/Loader.vue";
+import { capitalize } from "../utils/filters.js";
+import useEmitter from "../composables/useEmitter";
 
 export default {
-    setup() {
-        const state = reactive({
-            title: 'My List',
-            items: [
-                { id: 1, name: 'Item 1' },
-                { id: 2, name: 'Item 2' },
-                { id: 3, name: 'Item 3' },
-            ],
-        });
+  components: {
+    Loader,
+  },
+  setup() {
+    const store = usePokemon();
+    const emitter = useEmitter();
 
-        const itemCount = computed(() => state.items.length);
+    onMounted(() => {
+      emitter.on("searchItem", (name) => {
+        // all small caps
+        const lowercaseName = name.toLowerCase();
+        store.getPokemonList(lowercaseName);
+      });
+      store.getPokemonList();
+    });
 
-        return {
-            title: state.title,
-            items: state.items,
-            itemCount,
-        };
-    },
+    const pokemon = computed(() => store.getPokemonData);
+    const isLoading = computed(() => store.isLoading);
+
+    return {
+      isLoading,
+      pokemon,
+      capitalize,
+    };
+  },
 };
 </script>

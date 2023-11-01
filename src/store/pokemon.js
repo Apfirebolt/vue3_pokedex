@@ -18,11 +18,16 @@ export const usePokemon = defineStore('pokemon', {
     },
   
     actions: {
-      async getPokemonList() {
+      async getPokemonList(searchItem) {
         try {
-          this.loading = true;  
-          let responseData = await httpClient.get('/api/v2/pokemon')
-          this.pokemonData = responseData.data.results;
+          this.loading = true;
+          if (searchItem) {
+            let responseData = await httpClient.get(`/api/v2/pokemon/${searchItem}`)
+            this.pokemonData = [responseData.data];
+          } else {
+            let responseData = await httpClient.get('/api/v2/pokemon')
+            this.pokemonData = responseData.data.results;
+          }
           this.loading = false;
         } catch (error) {
           console.log(error)

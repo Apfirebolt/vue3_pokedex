@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-full">
+    <div class="min-h-full bg-gradient-to-r from-emerald-500 to-emerald-900 p-1">
       <main class="-mt-24 pb-8">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
           <!-- Main 3 column grid -->
@@ -57,13 +57,12 @@
                   </h2>
   
                   <div
-                    class="border-t border-gray-200 bg-gray-50 grid grid-cols-1 divide-y divide-gray-200 sm:grid-cols-3 sm:divide-y-0 sm:divide-x"
-                  >
-                    <div>
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, omnis?
-                    </div>
-                    {{ isLoading }}
-                  </div>
+                  class="border-t p-4 border-gray-200 bg-gray-50 grid grid-cols-1 divide-y divide-gray-200 sm:divide-y-0 sm:divide-x"
+                >
+                  <p>
+                    Pokémon is a Japanese media franchise consisting of video games, animated series and films, a trading card game, and other related media. The franchise takes place in a shared universe in which humans co-exist with creatures known as Pokémon, a large variety of species endowed with special powers. The franchise's target audience is children aged 5 to 12,[1] but it is known to attract people of all ages.
+                  </p>
+                </div>
                 </div>
               </section>
             </div>
