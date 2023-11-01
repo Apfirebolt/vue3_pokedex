@@ -2,7 +2,6 @@
   <div class="min-h-full">
     <main class="-mt-24 pb-8">
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-        <h1 class="sr-only">Profile</h1>
         <!-- Main 3 column grid -->
         <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
           <!-- Left column -->
@@ -10,9 +9,6 @@
             <!-- Welcome panel -->
             <section aria-labelledby="profile-overview-title">
               <div class="rounded-lg bg-white overflow-hidden shadow">
-                <h2 class="sr-only" id="profile-overview-title">
-                  Profile Overview
-                </h2>
                 <div class="bg-white p-6">
                   <div class="sm:flex sm:items-center sm:justify-between">
                     <div class="sm:flex sm:space-x-5">
@@ -81,8 +77,8 @@
 import { computed, onMounted } from "vue";
 import { usePokemon } from "../store/pokemon";
 import Loader from "../components/Loader.vue";
-import Logo from '../assets/vue.svg';
 import { capitalize } from "../utils/filters.js";
+import useEmitter from '../composables/useEmitter'
 
 export default {
   components: {
@@ -90,8 +86,12 @@ export default {
   },
   setup() {
     const store = usePokemon();
+    const emitter = useEmitter();
 
     onMounted(() => {
+      emitter.on("toggle-sidebar", () => {
+        console.log("toggle-sidebar");
+      });
       store.getPokemonList();
     });
 

@@ -129,6 +129,7 @@
   </template>
   
   <script>
+  import useEmitter from '../composables/useEmitter'
   import {
     Menu,
     MenuButton,
@@ -186,9 +187,12 @@
     },
     setup() {
 
+      const emitter = useEmitter()
       const searchItem = () => {
-        console.log('Now searching for item ')
+        console.log('Now searching for item ', emitter)
+        emitter.emit("toggle-sidebar");
       }
+
       return {
         user,
         searchItem,
