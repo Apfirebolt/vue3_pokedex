@@ -77,6 +77,7 @@
   import { computed, onMounted } from "vue";
   import { useItem } from "../store/item";
   import Loader from "../components/Loader.vue";
+  import { capitalize } from "../utils/filters.js";
   
   export default {
     components: {
@@ -92,9 +93,6 @@
       const item = computed(() => store.getItemData);
       const isLoading = computed(() => store.isLoading);
   
-      const capitalize = (string) => {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-      };
   
       return {
         isLoading,

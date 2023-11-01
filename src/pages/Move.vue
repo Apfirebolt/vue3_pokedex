@@ -77,6 +77,7 @@
   import { computed, onMounted } from "vue";
   import { useMove } from "../store/move";
   import Loader from "../components/Loader.vue";
+  import { capitalize } from "../utils/filters.js";
   
   export default {
     components: {
@@ -91,10 +92,6 @@
   
       const move = computed(() => store.getMoveData);
       const isLoading = computed(() => store.isLoading);
-  
-      const capitalize = (string) => {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-      };
   
       return {
         isLoading,

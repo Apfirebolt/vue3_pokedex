@@ -82,6 +82,7 @@ import { computed, onMounted } from "vue";
 import { usePokemon } from "../store/pokemon";
 import Loader from "../components/Loader.vue";
 import Logo from '../assets/vue.svg';
+import { capitalize } from "../utils/filters.js";
 
 export default {
   components: {
@@ -90,18 +91,12 @@ export default {
   setup() {
     const store = usePokemon();
 
-    console.log('Logo is now ', Logo);
-
     onMounted(() => {
       store.getPokemonList();
     });
 
     const pokemon = computed(() => store.getPokemonData);
     const isLoading = computed(() => store.isLoading);
-
-    const capitalize = (string) => {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    };
 
     return {
       isLoading,
