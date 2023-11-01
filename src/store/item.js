@@ -2,15 +2,15 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import httpClient from "../plugins/interceptor";
 
-export const usePokemon = defineStore('pokemon', {
+export const useItem = defineStore('item', {
     state: () => ({
-      pokemonData: ref([]),
+      itemData: ref([]),
       loading: ref(false),
     }),
 
     getters: {
-        getPokemonData() {
-            return this.pokemonData;
+        getItemData() {
+            return this.itemData;
         },
         isLoading() {
             return this.loading;
@@ -18,11 +18,11 @@ export const usePokemon = defineStore('pokemon', {
     },
   
     actions: {
-      async getPokemonList() {
+      async getItemList() {
         try {
           this.loading = true;  
-          let responseData = await httpClient.get('/api/v2/pokemon')
-          this.pokemonData = responseData.data.results;
+          let responseData = await httpClient.get('/api/v2/item')
+          this.itemData = responseData.data.results;
           this.loading = false;
         } catch (error) {
           console.log(error)

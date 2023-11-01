@@ -19,8 +19,8 @@
                       <div class="flex-shrink-0">
                         <img
                           class="mx-auto h-20 w-20 rounded-full"
-                          :src="user.imageUrl"
-                          alt=""
+                          src="../assets/pokemon.png"
+                          alt="Image not available"
                         />
                       </div>
                       <div
@@ -66,6 +66,7 @@
                   <div>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, omnis?
                   </div>
+                  {{ isLoading }}
                 </div>
               </div>
             </section>
@@ -80,26 +81,7 @@
 import { computed, onMounted } from "vue";
 import { usePokemon } from "../store/pokemon";
 import Loader from "../components/Loader.vue";
-
-const user = {
-  name: "Chelsea Hagon",
-  email: "chelseahagon@example.com",
-  role: "Human Resources Manager",
-  imageUrl:
-    "https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
-const navigation = [
-  { name: "Home", href: "#", current: true },
-  { name: "Profile", href: "#", current: false },
-  { name: "Resources", href: "#", current: false },
-  { name: "Company Directory", href: "#", current: false },
-  { name: "Openings", href: "#", current: false },
-];
-const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
-];
+import Logo from '../assets/vue.svg';
 
 export default {
   components: {
@@ -108,6 +90,8 @@ export default {
   setup() {
     const store = usePokemon();
 
+    console.log('Logo is now ', Logo);
+
     onMounted(() => {
       store.getPokemonList();
     });
@@ -115,19 +99,14 @@ export default {
     const pokemon = computed(() => store.getPokemonData);
     const isLoading = computed(() => store.isLoading);
 
-    console.log('Is loading ', isLoading.value);
-
     const capitalize = (string) => {
       return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
     return {
-      user,
-      navigation,
-      userNavigation,
       isLoading,
       pokemon,
-      capitalize
+      capitalize,
     };
   },
 };
