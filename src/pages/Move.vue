@@ -40,7 +40,9 @@
                       :key="index"
                       class="px-3 py-2 text-sm font-medium text-center"
                     >
-                      <p class="text-gray-900 bg-indigo-100 px-2 py-3 shadow rounded">{{ capitalize(oneItem.name) }}</p>
+                      <p 
+                        @click="goToDetailPage(oneItem.name)"
+                        class="text-gray-900 bg-indigo-100 px-2 py-3 shadow rounded hover:cursor-pointer">{{ capitalize(oneItem.name) }}</p>
                       {{ " " }}
                     </div>
                   </div>
@@ -77,6 +79,9 @@
   import { useMove } from "../store/move";
   import Loader from "../components/Loader.vue";
   import { capitalize } from "../utils/filters.js";
+  import { useRoute, useRouter } from 'vue-router'
+  import useEmitter from "../composables/useEmitter";
+
   
   export default {
     components: {
@@ -84,18 +89,33 @@
     },
     setup() {
       const store = useMove();
-  
+      const emitter = useEmitter();
+      const route = useRoute();
+      const router = useRouter();
+      const currentRoute = computed(() => route.path)
+
       onMounted(() => {
+        if (currentRoute.value === "/move") {
+          emitter.on("searchItem", (name) => {
+            let smallCaps = name.toLowerCase();
+            store.getMoveList(smallCaps);
+          })
+        }
         store.getMoveList();
       });
   
       const move = computed(() => store.getMoveData);
       const isLoading = computed(() => store.isLoading);
+
+      const goToDetailPage = (name) => {
+        router.push({ name: "MoveDetail", params: { name } });
+      };
   
       return {
         isLoading,
         move,
         capitalize,
+        goToDetailPage
       };
     },
   };

@@ -15,14 +15,29 @@ const routes = [
         component: () => import('../pages/Pokemon.vue')
     },
     {
+        path: '/pokemon/:name',
+        name: 'PokemonDetail',
+        component: () => import('../pages/PokemonDetail.vue')
+    },
+    {
         path: '/move',
         name: 'MoveList',
         component: () => import('../pages/Move.vue')
     },
     {
+        path: '/move/:name',
+        name: 'MoveDetail',
+        component: () => import('../pages/MoveDetail.vue')
+    },
+    {
         path: '/item',
         name: 'ItemList',
         component: () => import('../pages/Item.vue')
+    },
+    {
+        path: '/item/:name',
+        name: 'ItemDetail',
+        component: () => import('../pages/ItemDetail.vue')
     },
     {
         path: '/:catchAll(.*)',

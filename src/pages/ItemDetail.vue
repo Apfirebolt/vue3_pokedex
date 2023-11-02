@@ -23,25 +23,25 @@
                           class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left"
                         >
                           <h2 class="text-xl font-bold text-gray-900 sm:text-2xl">
-                            Pokemon
+                            Item
                           </h2>
                           <p class="text-sm font-medium text-gray-600">
-                            Detail of a Pokemon
+                            Get Item details from API
                           </p>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div v-if="pokemon"
+                  <div v-if="item"
                     class="border-t border-gray-200 bg-gray-50 grid grid-cols-1 divide-y divide-gray-200 sm:grid-cols-3 sm:divide-y-0 sm:divide-x"
                   >
-                    {{ pokemon }}                                 
+                    {{ item }}                                 
                   </div>
                   <div v-else>
                       <p
                         class="text-gray-900 bg-indigo-100 px-2 py-3 shadow rounded"
                       >
-                          No pokemon found
+                          No item found
                       </p>
                   </div>
                 </div>
@@ -76,7 +76,7 @@
   
   <script>
   import { computed, onMounted } from "vue";
-  import { usePokemon } from "../store/pokemon";
+  import { useItem } from "../store/item";
   import { useRoute } from 'vue-router'
   import Loader from "../components/Loader.vue";
   
@@ -85,19 +85,19 @@
       Loader,
     },
     setup() {
-      const store = usePokemon();
+      const store = useItem();
       const route = useRoute();
   
       onMounted(() => {
-        store.getSinglePokemon(route.params.name);
+        store.getSingleItem(route.params.name);
       });
   
-      const pokemon = computed(() => store.pokemon);
+      const item = computed(() => store.getItem);
       const isLoading = computed(() => store.isLoading);
   
       return {
         isLoading,
-        pokemon,
+        item,
       };
     },
   };

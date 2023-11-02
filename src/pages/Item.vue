@@ -40,7 +40,9 @@
                       :key="index"
                       class="px-3 py-2 text-sm font-medium text-center"
                     >
-                      <p class="text-gray-900 bg-indigo-100 px-2 py-3 shadow rounded">{{ capitalize(oneItem.name) }}</p>
+                      <p
+                        @click="goToDetailPage(oneItem.name)" 
+                        class="text-gray-900 bg-indigo-100 px-2 py-3 shadow rounded hover:cursor-pointer">{{ capitalize(oneItem.name) }}</p>
                       {{ " " }}
                     </div>
                   </div>
@@ -74,9 +76,11 @@
   
   <script>
   import { computed, onMounted } from "vue";
+  import { useRoute, useRouter } from 'vue-router'
   import { useItem } from "../store/item";
   import Loader from "../components/Loader.vue";
   import { capitalize } from "../utils/filters.js";
+  import useEmitter from "../composables/useEmitter";
   
   export default {
     components: {
@@ -84,18 +88,32 @@
     },
     setup() {
       const store = useItem();
+      const emitter = useEmitter();
+      const route = useRoute();
+      const router = useRouter();
+      const currentRoute = computed(() => route.path)
   
       onMounted(() => {
+        emitter.on("searchItem", (name) => {
+        if (currentRoute.value === "/item") {
+          const lowercaseName = name.toLowerCase();
+          store.getItemList(lowercaseName);
+        }
+      });
         store.getItemList();
       });
   
       const item = computed(() => store.getItemData);
       const isLoading = computed(() => store.isLoading);
-  
-  
+
+      const goToDetailPage = (name) => {
+        router.push({ name: "ItemDetail", params: { name } });
+      };
+
       return {
         isLoading,
         item,
+        goToDetailPage,
         capitalize,
       };
     },

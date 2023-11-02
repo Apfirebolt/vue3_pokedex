@@ -32,7 +32,7 @@
                     </div>
                   </div>
                 </div>
-                <div
+                <div v-if="pokemon.length"
                   class="border-t border-gray-200 bg-gray-50 grid grid-cols-1 divide-y divide-gray-200 sm:grid-cols-3 sm:divide-y-0 sm:divide-x"
                 >
                   <div
@@ -41,12 +41,21 @@
                     class="px-3 py-2 text-sm font-medium text-center"
                   >
                     <p
-                      class="text-gray-900 bg-indigo-100 px-2 py-3 shadow rounded"
+                      @click="goToDetailPage(item.name)"
+                      class="text-gray-900 bg-indigo-100 px-2 py-3 shadow rounded hover:cursor-pointer"
                     >
                       {{ capitalize(item.name) }}
                     </p>
                     {{ " " }}
-                  </div>
+                  </div>  
+                                
+                </div>
+                <div v-else>
+                    <p
+                      class="text-gray-900 bg-indigo-100 px-2 py-3 shadow rounded"
+                    >
+                        No pokemon found
+                    </p>
                 </div>
               </div>
             </section>
@@ -81,9 +90,11 @@
 <script>
 import { computed, onMounted } from "vue";
 import { usePokemon } from "../store/pokemon";
+import { useRoute, useRouter } from 'vue-router'
 import Loader from "../components/Loader.vue";
 import { capitalize } from "../utils/filters.js";
 import useEmitter from "../composables/useEmitter";
+
 
 export default {
   components: {
@@ -92,12 +103,16 @@ export default {
   setup() {
     const store = usePokemon();
     const emitter = useEmitter();
+    const route = useRoute();
+    const router = useRouter();
+    const currentRoute = computed(() => route.path)
 
     onMounted(() => {
       emitter.on("searchItem", (name) => {
-        // all small caps
-        const lowercaseName = name.toLowerCase();
-        store.getPokemonList(lowercaseName);
+        if (currentRoute.value === "/pokemon") {
+          const lowercaseName = name.toLowerCase();
+          store.getPokemonList(lowercaseName);
+        }
       });
       store.getPokemonList();
     });
@@ -105,8 +120,13 @@ export default {
     const pokemon = computed(() => store.getPokemonData);
     const isLoading = computed(() => store.isLoading);
 
+    const goToDetailPage = (name) => {
+      router.push({ name: "PokemonDetail", params: { name } });
+    };
+
     return {
       isLoading,
+      goToDetailPage,
       pokemon,
       capitalize,
     };
