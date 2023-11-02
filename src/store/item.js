@@ -46,5 +46,9 @@ export const useItem = defineStore('item', {
           return error
         }
       },
+
+      resetItem() {
+        this.item = {};
+      }
     },
   })
