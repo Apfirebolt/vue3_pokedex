@@ -46,5 +46,9 @@ export const useMove = defineStore('move', {
           return error
         }
       },
+
+      resetMove() {
+        this.move = {};
+      }
     },
   })
