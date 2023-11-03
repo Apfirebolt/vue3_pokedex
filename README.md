@@ -18,7 +18,7 @@
   <h3 align="center">Pokedex App in Vue 3 and Vite using Tailwind CSS</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    An awesome README template!
     <br />
     <a href="https://github.com/Apfirebolt/vue3_pokedex"><strong>Explore the docs »</strong></a>
     <br />
@@ -62,16 +62,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+I created this project to enhance my existing knowledge in Vue 3 especially in using Composition API and Pinia data store. I used this open API which has tons of pokemon data <a href="https://pokeapi.co">https://pokeapi.co</a>
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
+I also used Headless-UI library to add dynamic components like dropdown in this project. For browser-based testing I included Cypress library into this project.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -134,8 +127,9 @@ Simple steps to set this thing on your system.
 
 - [x] Project Prototyping
 - [x] Creation of global components and Pages
-- [ ] Introduction of Pinia for store Management
-- [ ] Added Cypress for component testing
+- [x] Introduction of Pinia for store Management
+- [x] Added Cypress for component testing
+- [] Advanced Pagination
 
 See the [open issues](https://github.com/Apfirebolt/vue3_pokedex/issues) for a full list of proposed features (and known issues).
 
@@ -155,6 +149,8 @@ Don't forget to give the project a star! Thanks again!
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
+
+There are a lot of API end-points like contests, areas and much more from the PokeAPI open API. There could well be separate pages for these data from the pokemon games.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -183,13 +179,13 @@ Project Link: [https://github.com/Apfirebolt/vue3_pokedex](https://github.com/Ap
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+This project owes its existance to following awesome libraries/resources.
 
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
+* [Headless UI](https://headlessui.com/)
 * [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
+* [Tailwind UI Components](https://tailwindui.com)
+* [Hero Icons](https://heroicons.com/)
+* [Poke API] (https://pokeapi.co)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
