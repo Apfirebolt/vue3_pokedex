@@ -15,21 +15,6 @@
         Previous
       </a>
     </div>
-    <div class="hidden md:-mt-px md:flex">
-      <a
-        href="#"
-        class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium"
-      >
-        1
-      </a>
-      <!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" -->
-      <a
-        href="#"
-        class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 border-t-2 pt-4 px-4 inline-flex items-center text-sm font-medium"
-      >
-        10
-      </a>
-    </div>
     <div class="-mt-px w-0 flex-1 flex justify-end">
       <a
         @click.prevent="goToNextPage"
