@@ -52,9 +52,5 @@ export default {
       required: true,
     },
   },
-  setup(props) {
-
-    console.log('This console', props);
-  },
 };
 </script>
