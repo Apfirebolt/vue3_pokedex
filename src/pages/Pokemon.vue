@@ -89,6 +89,7 @@
 
 <script>
 import { computed, onMounted } from "vue";
+import { useMouse } from "../composables/useMouse";
 import { usePokemon } from "../store/pokemon";
 import { useRoute, useRouter } from 'vue-router'
 import Loader from "../components/Loader.vue";
@@ -105,7 +106,10 @@ export default {
     const emitter = useEmitter();
     const route = useRoute();
     const router = useRouter();
+    const { x, y } = useMouse()
     const currentRoute = computed(() => route.path)
+
+    console.log('Mouse positions ', x, y)
 
     onMounted(() => {
       emitter.on("searchItem", (name) => {
