@@ -129,7 +129,8 @@ Simple steps to set this thing on your system.
 - [x] Creation of global components and Pages
 - [x] Introduction of Pinia for store Management
 - [x] Added Cypress for component testing
-- [] Advanced Pagination
+- [ ] Advanced Pagination
+- [ ] Addition of More pages for contests, areas and more
 
 See the [open issues](https://github.com/Apfirebolt/vue3_pokedex/issues) for a full list of proposed features (and known issues).
 
@@ -185,7 +186,7 @@ This project owes its existance to following awesome libraries/resources.
 * [Img Shields](https://shields.io)
 * [Tailwind UI Components](https://tailwindui.com)
 * [Hero Icons](https://heroicons.com/)
-* [Poke API] (https://pokeapi.co)
+* [Poke API](https://pokeapi.co/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
