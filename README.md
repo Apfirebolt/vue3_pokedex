@@ -97,7 +97,15 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+### Project Screenshots
 
+This section would show the screenshots for this project. There are currently 3 images for this project inside the screenshots folder. The screenshots show the Move list page, Pokemon detail page and Move detail page.
+
+![Move list page](screenshots/1.png)
+
+![Pokemon Detail Page](screenshots/2.png)
+
+![Move Detail Page](screenshots/3.png)
 
 <!-- GETTING STARTED -->
 ## Getting Started
