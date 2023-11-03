@@ -77,6 +77,8 @@
                     powers. The franchise's target audience is children aged 5
                     to 12,[1] but it is known to attract people of all ages.
                   </p>
+
+                  <Pagination :goToNextPage="goToNextPage" :goToPreviousPage="goToPreviousPage" />
                 </div>
               </div>
             </section>
@@ -88,11 +90,12 @@
 </template>
 
 <script>
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useMouse } from "../composables/useMouse";
 import { usePokemon } from "../store/pokemon";
 import { useRoute, useRouter } from 'vue-router'
 import Loader from "../components/Loader.vue";
+import Pagination from "../components/Pagination.vue";
 import { capitalize } from "../utils/filters.js";
 import useEmitter from "../composables/useEmitter";
 
@@ -100,8 +103,11 @@ import useEmitter from "../composables/useEmitter";
 export default {
   components: {
     Loader,
+    Pagination
   },
   setup() {
+    const startIndex = ref(0);
+    const endIndex = ref(40);
     const store = usePokemon();
     const emitter = useEmitter();
     const route = useRoute();
@@ -115,10 +121,10 @@ export default {
       emitter.on("searchItem", (name) => {
         if (currentRoute.value === "/pokemon") {
           const lowercaseName = name.toLowerCase();
-          store.getPokemonList(lowercaseName);
+          store.getPokemonList(lowercaseName, 40, 0);
         }
       });
-      store.getPokemonList();
+      store.getPokemonList(null, 40, 0);
     });
 
     const pokemon = computed(() => store.getPokemonData);
@@ -128,11 +134,30 @@ export default {
       router.push({ name: "PokemonDetail", params: { name } });
     };
 
+    const goToNextPage = () =>  {
+      if (endIndex.value < 1118) {
+        startIndex.value += 40;
+        endIndex.value += 40;
+        store.getPokemonList(null, endIndex.value, startIndex.value);
+      }
+    }
+
+    const goToPreviousPage = () => {
+      console.log('Calling previous page')
+      if (startIndex.value > 0) {
+        startIndex.value -= 40;
+        endIndex.value -= 40;
+        store.getPokemonList(null, endIndex.value, startIndex.value);
+      }
+    }
+
     return {
       isLoading,
       goToDetailPage,
       pokemon,
       capitalize,
+      goToNextPage,
+      goToPreviousPage
     };
   },
 };

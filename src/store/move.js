@@ -22,13 +22,13 @@ export const useMove = defineStore('move', {
     },
   
     actions: {
-      async getMoveList(searchItem) {
+      async getMoveList(searchItem, limit, offset) {
         try {
           if (searchItem) {
             let responseData = await httpClient.get(`/api/v2/move/${searchItem}`)
             this.moveData = [responseData.data];
           } else {
-            let responseData = await httpClient.get('/api/v2/move')
+            let responseData = await httpClient.get(`/api/v2/move?limit=${limit}&offset=${offset})`)
             this.moveData = responseData.data.results;
           }
         } catch (error) {

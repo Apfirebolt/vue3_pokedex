@@ -22,13 +22,13 @@ export const useItem = defineStore('item', {
     },
   
     actions: {
-      async getItemList(searchItem) {
+      async getItemList(searchItem, limit, offset) {
         try {
           if (searchItem) {
             let responseData = await httpClient.get(`/api/v2/item/${searchItem}`)
             this.itemData = [responseData.data];
           } else {
-            let responseData = await httpClient.get('/api/v2/item')
+            let responseData = await httpClient.get(`/api/v2/item?limit=${limit}&offset=${offset})`)
             this.itemData = responseData.data.results;
           }
         } catch (error) {

@@ -100,6 +100,7 @@
 <script>
 import { computed, onMounted } from "vue";
 import { usePokemon } from "../store/pokemon";
+import { useMouse } from "../composables/useMouse";
 import { useRoute } from 'vue-router'
 import Loader from "../components/Loader.vue";
 import { capitalize } from "../utils/filters";
@@ -115,7 +116,7 @@ export default {
     onMounted(() => {
       store.getSinglePokemon(route.params.name);
     });
-
+    
     const pokemon = computed(() => store.pokemon);
     const isLoading = computed(() => store.isLoading);
 

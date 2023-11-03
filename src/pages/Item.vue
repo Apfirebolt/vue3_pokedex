@@ -97,10 +97,10 @@
         emitter.on("searchItem", (name) => {
         if (currentRoute.value === "/item") {
           const lowercaseName = name.toLowerCase();
-          store.getItemList(lowercaseName);
+          store.getItemList(lowercaseName, 40, 0);
         }
       });
-        store.getItemList();
+        store.getItemList(null, 40, 0);
       });
   
       const item = computed(() => store.getItemData);

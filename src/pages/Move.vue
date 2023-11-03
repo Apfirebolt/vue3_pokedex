@@ -98,10 +98,10 @@
         if (currentRoute.value === "/move") {
           emitter.on("searchItem", (name) => {
             let smallCaps = name.toLowerCase();
-            store.getMoveList(smallCaps);
+            store.getMoveList(smallCaps, 40, 0);
           })
         }
-        store.getMoveList();
+        store.getMoveList(null, 40, 0);
       });
   
       const move = computed(() => store.getMoveData);
