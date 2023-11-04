@@ -52,5 +52,12 @@ export default {
       required: true,
     },
   },
+
+  setup(props) {
+    return {
+      goToNextPage: props.goToNextPage,
+      goToPreviousPage: props.goToPreviousPage,
+    };
+  },
 };
 </script>

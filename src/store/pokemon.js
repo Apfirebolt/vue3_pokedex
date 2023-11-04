@@ -2,9 +2,11 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import httpClient from "../plugins/interceptor";
 
+
 export const usePokemon = defineStore('pokemon', {
     state: () => ({
       pokemonData: ref([]),
+      errorMessage: ref(''),
       pokemon: ref({}),
       loading: ref(false),
     }),
@@ -34,6 +36,7 @@ export const usePokemon = defineStore('pokemon', {
           }
           this.loading = false;
         } catch (error) {
+          this.errorMessage = error.message;
           console.log(error)
           return error
         }

@@ -1,6 +1,9 @@
 <template>
   <div class="min-h-full bg-gradient-to-r from-emerald-500 to-emerald-900 p-1">
     <main class="-mt-24 pb-8">
+      <p>
+        {{ hasError }}
+      </p>
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <!-- Main 3 column grid -->
         <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
@@ -60,7 +63,7 @@
               </div>
             </section>
           </div>
-
+          
           <div class="grid grid-cols-1 gap-4">
             <!-- Welcome panel -->
             <section aria-labelledby="profile-overview-title">
@@ -90,11 +93,12 @@
 </template>
 
 <script>
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watchEffect } from "vue";
 import { useMouse } from "../composables/useMouse";
 import { usePokemon } from "../store/pokemon";
 import { useRoute, useRouter } from 'vue-router'
 import Loader from "../components/Loader.vue";
+import ErrorToast from "../components/ErrorToast.vue";
 import Pagination from "../components/Pagination.vue";
 import { capitalize } from "../utils/filters.js";
 import useEmitter from "../composables/useEmitter";
@@ -103,7 +107,8 @@ import useEmitter from "../composables/useEmitter";
 export default {
   components: {
     Loader,
-    Pagination
+    Pagination,
+    ErrorToast
   },
   setup() {
     const startIndex = ref(0);
@@ -129,13 +134,14 @@ export default {
 
     const pokemon = computed(() => store.getPokemonData);
     const isLoading = computed(() => store.isLoading);
+    const hasError = computed(() => store.errorMessage);
 
     const goToDetailPage = (name) => {
       router.push({ name: "PokemonDetail", params: { name } });
     };
 
     const goToNextPage = () =>  {
-      if (endIndex.value < 1118) {
+      if (endIndex.value < 1292) {
         startIndex.value += 40;
         endIndex.value += 40;
         store.getPokemonList(null, endIndex.value, startIndex.value);
@@ -143,7 +149,6 @@ export default {
     }
 
     const goToPreviousPage = () => {
-      console.log('Calling previous page')
       if (startIndex.value > 0) {
         startIndex.value -= 40;
         endIndex.value -= 40;
@@ -157,7 +162,8 @@ export default {
       pokemon,
       capitalize,
       goToNextPage,
-      goToPreviousPage
+      goToPreviousPage,
+      hasError
     };
   },
 };
