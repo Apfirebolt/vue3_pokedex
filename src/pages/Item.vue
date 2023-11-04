@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useItem } from "../store/item";
 import Loader from "../components/Loader.vue";
@@ -104,13 +104,19 @@ export default {
     const currentRoute = computed(() => route.path);
 
     onMounted(() => {
-      emitter.on("searchItem", (name) => {
-        if (currentRoute.value === "/item") {
+      if (currentRoute.value === "/item") {
+        emitter.on("searchItem", (name) => {
           const lowercaseName = name.toLowerCase();
           store.getItemList(lowercaseName, 40, 0);
-        }
-      });
+        });
+      } else {
+        emitter.off("searchItem");
+      }
       store.getItemList(null, 40, 0);
+    });
+
+    onUnmounted(() => {
+      emitter.off("searchItem");
     });
 
     const item = computed(() => store.getItemData);

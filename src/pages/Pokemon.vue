@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import { computed, onMounted, ref, watchEffect } from "vue";
+import { computed, onMounted, ref, watchEffect, onUnmounted } from "vue";
 import { useMouse } from "../composables/useMouse";
 import { usePokemon } from "../store/pokemon";
 import { useRoute, useRouter } from 'vue-router'
@@ -123,13 +123,17 @@ export default {
     console.log('Mouse positions ', x, y)
 
     onMounted(() => {
-      emitter.on("searchItem", (name) => {
-        if (currentRoute.value === "/pokemon") {
+      if (currentRoute.value === "/pokemon") {
+        emitter.on("searchItem", (name) => {
           const lowercaseName = name.toLowerCase();
           store.getPokemonList(lowercaseName, 40, 0);
-        }
-      });
+        });
+      }
       store.getPokemonList(null, 40, 0);
+    });
+
+    onUnmounted(() => {
+      emitter.off("searchItem");
     });
 
     const pokemon = computed(() => store.getPokemonData);

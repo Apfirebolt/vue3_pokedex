@@ -85,9 +85,8 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import { useMove } from "../store/move";
-import { useMouse } from "../composables/useMouse";
 import Loader from "../components/Loader.vue";
 import Pagination from "../components/Pagination.vue";
 import { capitalize } from "../utils/filters.js";
@@ -102,7 +101,6 @@ export default {
   setup() {
     const startIndex = ref(0);
     const endIndex = ref(40);
-    const { x, y } = useMouse();
     const store = useMove();
     const emitter = useEmitter();
     const route = useRoute();
@@ -110,7 +108,6 @@ export default {
     const currentRoute = computed(() => route.path);
 
     onMounted(() => {
-      console.log('Mouse positions ', x, y)
       if (currentRoute.value === "/move") {
         emitter.on("searchItem", (name) => {
           let smallCaps = name.toLowerCase();
@@ -118,6 +115,10 @@ export default {
         });
       }
       store.getMoveList(null, 40, 0);
+    });
+
+    onUnmounted(() => {
+      emitter.off("searchItem");
     });
 
     const move = computed(() => store.getMoveData);
