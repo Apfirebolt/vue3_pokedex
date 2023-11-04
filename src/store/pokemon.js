@@ -53,5 +53,9 @@ export const usePokemon = defineStore('pokemon', {
           return error
         }
       },
+
+      resetErrorMessage() {
+        this.errorMessage = '';
+      }
     },
   })

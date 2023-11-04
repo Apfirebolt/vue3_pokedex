@@ -1,7 +1,7 @@
 <template>
     <transition name="fade">
         <div v-if="errorMessage"
-            class="fixed bottom-0 right-0 mb-4 mr-4 bg-red-500 w-1/2 mx-auto text-white px-4 py-3 rounded-md"
+            class="fixed top-10 right-0 mb-4 mr-4 bg-red-500 w-1/2 mx-auto text-white px-4 py-3 rounded-md"
         >
             {{ errorMessage }} 
         </div>

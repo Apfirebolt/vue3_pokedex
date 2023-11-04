@@ -1,9 +1,6 @@
 <template>
   <div class="min-h-full bg-gradient-to-r from-emerald-500 to-emerald-900 p-1">
     <main class="-mt-24 pb-8">
-      <p>
-        {{ hasError }}
-      </p>
       <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <!-- Main 3 column grid -->
         <div class="grid grid-cols-1 gap-4 items-start lg:grid-cols-3 lg:gap-8">
@@ -159,6 +156,15 @@ export default {
         store.getPokemonList(null, endIndex.value, startIndex.value);
       }
     }
+
+    watchEffect(() => {
+      if (hasError.value) {
+        emitter.emit("showError", hasError.value);
+        setTimeout(() => {
+          store.resetErrorMessage('');
+        }, 3000);
+      }
+    });
 
     return {
       isLoading,
