@@ -24,7 +24,7 @@ const responseInterceptor = httpClient.interceptors.response.use(
         return response;
     },
     error => {
-        // Do something with response error
+        console.log('Something went wrong with response interceptor');  
         return Promise.reject(error);
     }
 );

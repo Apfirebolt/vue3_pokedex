@@ -1,20 +1,20 @@
-import { createApp } from 'vue'
+import { createSSRApp } from "vue";
+import App from "./App.vue";
+import { createRouter } from "./routes";
 import { createPinia } from 'pinia'
 import mitt from 'mitt';
-import App from './App.vue'
-import router from './routes'
 
 import './style.css'
 
 const emitter = mitt();
 
-const app = createApp(App)
-app.use(router)
-app.use(createPinia())
-app.config.globalProperties.emitter = emitter;
-
-app.mount('#app');
-
-
-
+export function createApp() {
+ const app = createSSRApp(App);
+ const pinia = createPinia();
+ app.use(pinia);
+ const router = createRouter();
+ app.use(router);
+ app.config.globalProperties.emitter = emitter;
+ return { app, router };
+}
 
