@@ -2,12 +2,13 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import express from "express";
+import compression from "compression";
 
 const isTest = process.env.VITEST;
 
 export async function createServer(
   root = process.cwd(),
-  isProd = process.env.NODE_ENV === "production",
+  isProd = false,
   hmrPort
 ) {
   const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -61,8 +62,7 @@ export async function createServer(
 
   app.use("*", async (req, res) => {
     try {
-      const url = req.originalUrl;
-
+      const url = req.originalUrl; 
       let template, render;
       if (!isProd) {
         template = fs.readFileSync(resolve("index.html"), "utf-8");
